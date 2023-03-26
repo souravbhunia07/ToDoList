@@ -4,8 +4,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const dotenv = require('dotenv');
 
-mongoose.connect("mongodb+srv://admin-sourav07:admin@cluster0.kx649.mongodb.net/todo_listDB");
+dotenv.config();
+
+mongoose.connect(process.env.DB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const app = express();
 
@@ -25,14 +31,15 @@ const item1 = new Item ({
 });
 
 const item2 = new Item ({
-  name : "Drinking water",
+  name : "Shopping",
 });
 
 const item3 = new Item ({
-  name : "web development",
+  name : "cleaning room",
 });
 
 const defaultItem = [item1, item2, item3];
+// const defaultItem = [];
 
 const listSchema = {
   name : String,
@@ -49,7 +56,7 @@ app.get("/", function(req, res) {
           console.log(err);
         }
         else {
-          console.log("Successfully saved default items!");
+          // console.log("Successfully saved default items!");
         }
         res.redirect("/");
       });
@@ -114,7 +121,7 @@ app.post("/delete", function(req, res) {
         console.log(err);
       }
       else {
-        console.log("Successfully Deleted!");
+        // console.log("Successfully Deleted!");
       }
       res.redirect("/");
     });
@@ -137,10 +144,11 @@ app.get("/about", function(req, res){
 });
 
 
-// let port = process.env.PORT;
+let port = process.env.PORT || 3000;
+// let port = 3000;
 // if (port === null || port === "") {
 //   port = 3000;
 // }
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+app.listen(port, function() {
+  console.log(`Server started on port ${port}`);
 });
