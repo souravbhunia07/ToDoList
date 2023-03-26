@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-mongoose.connect(process.env.DB_URL, {
+mongoose.connect("mongodb+srv://admin-sourav07:admin@cluster0.kx649.mongodb.net/todo_listDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
